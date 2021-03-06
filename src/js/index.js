@@ -15,18 +15,44 @@ function Counter(props) {
 			<div className="clockIcon">
 				<i className="far fa-clock"></i>
 			</div>
-			<div className="six">{props.digitOne}</div>
-			<div className="five">{props.digitFive}</div>
-			<div className="four">{props.digitFour}</div>
-			<div className="three">{props.digitThree}</div>
-			<div className="two">{props.digitTwo}</div>
-			<div className="one">{props.digitOne}</div>
+			<div className="six">{props.digitSix % 10}</div>
+			<div className="five">{props.digitFive % 10}</div>
+			<div className="four">{props.digitFour % 10}</div>
+			<div className="three">{props.digitThree % 10}</div>
+			<div className="two">{props.digitTwo % 10}</div>
+			<div className="one">{props.digitOne % 10}</div>
 		</div>
 	);
 }
 
+Counter.propTypes = {
+	digitOne: PropTypes.number,
+	digitTwo: PropTypes.number,
+	digitThree: PropTypes.number,
+	digitFour: PropTypes.number,
+	digitFive: PropTypes.number,
+	digitSix: PropTypes.number
+};
+
 let time = 0;
+
 setInterval(function() {
-	ReactDOM.render(<Counter />, document.querySelector("#app"));
+	const six = Math.floor(time / 100000);
+	const five = Math.floor(time / 10000);
+	const four = Math.floor(time / 1000);
+	const three = Math.floor(time / 100);
+	const two = Math.floor(time / 10);
+	const one = Math.floor(time / 1);
+	ReactDOM.render(
+		<Counter
+			digitOne={one}
+			digitTwo={two}
+			digitThree={three}
+			digitFour={four}
+			digitFive={five}
+			digitSix={six}
+		/>,
+		document.querySelector("#app")
+	);
 	time++;
 }, 1000);
